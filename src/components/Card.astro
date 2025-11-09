@@ -13,8 +13,9 @@ interface Props {
 }
 
 const { slug,image,title,date,author,content,tags,rating } = Astro.props;
+
 let stars = '';
-for (let i = 0; i < rating; i++) {
+for (let i = 0; i < rating ; i++) {
   stars += '★';
 }
 ---

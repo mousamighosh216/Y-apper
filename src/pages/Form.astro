@@ -113,7 +113,7 @@ import { category } from '../data/category'
               content: String(formData.get("content") ?? ""),
               author: String(formData.get("author") ?? ""),
               tags: JSON.stringify(selectedTags.length ? selectedTags : ["Lifestyle"]),
-              rating: Number(0),
+              rating: Number(3),
             };
 
             const statusEl = document.getElementById("status");
