@@ -1,11 +1,61 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Category from "../components/Category.astro"
+import Card from "../components/Card.astro"
+import TopPost from '../components/TopPost.astro';
+import { fetchBlogs, slugify } from "../data/fetchBlogs";
+const blogs = await fetchBlogs();
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const filteredArticles = blogs
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
 ---
 
 <Layout>
-	<Welcome />
+    <div 
+    class="h-auto w-full justify-between flex flex-row">
+        <div 
+        class="h-screen w-[30%]  flex flex-col">
+            <div 
+            style="margin-top: 5px;"
+            class="w-full h-[280px] flex flex-col justify-center items-center">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search articles..."
+                    class="w-[85%] min-h-10 h-10 rounded-lg bg-white text-black focus:outline-none"
+                    style="padding-left:10px; padding-right:10px; background-color:ghostwhite"
+                />
+                <Category />
+            </div>
+            <div class="top-post w-full h-auto flex justify-center items-center p-4">
+                <TopPost />
+            </div>
+        </div>
+        <div 
+        id="articleGrid"
+        style="padding:2px; margin:3px; gap:10px"
+        class="h-full w-full flex flex-col items-center">
+                {filteredArticles.map((article) => (
+                    <Card 
+                    tags={article.tags}
+                    slug={slugify(article.title)} 
+                    title={article.title}
+                    image={article.image}
+                    date={article.date}
+                    author={article.author}
+                    content={article.content}
+                    rating={article.rating}
+                    />
+                ))}
+                
+                <!-- <button
+                class="h-10 w-30 bg-white rounded-2xl hover:bg-gray-100 active:bg-gray-300 duration-400 transition-colors hover:scale-102"
+                >Read More</button>    -->
+        </div>
+    </div>
 </Layout>
+
+<style>
+   
+</style>

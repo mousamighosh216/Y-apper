@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { fetchBlogs } from "../../data/fetchBlogs";
+
+export async function getStaticPaths() {
+  const blogs = await fetchBlogs();
+
+  return blogs.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<Layout title={article.title}> 
+    <article class="w-full h-auto flex flex-col items-center justify-between ">
+        <div 
+        class="w-[600px] flex flex-col items-center justify-between ">
+            <header class="gap-5 flex w-full flex-col">
+                <div class="h-[300px] rounded-2xl overflow-hidden">
+                    <img 
+                    class="object-cover h-full w-full"
+                    src={article.image} alt={article.title}>
+                </div>
+                <h1 
+                style="padding: 10px;"
+                class="text-5xl font-extrabold flex w-full items-center justify-center">
+                    {article.title}
+                </h1>
+                <div 
+                style="padding:30px; padding-top:0;"
+                class="flex flex-row items-center font-bold justify-between">
+                    <h3>{article.author}</h3>
+                    <h3>{article.date}</h3>
+                </div>
+            </header>
+        <div 
+         style="padding:30px;"
+         set:html={article.content}
+         class="content flex flex-col items-center w-full">
+        </div>
+        </div>
+    </article>
+</Layout>
+
+<style>
+    .content img {
+        height: 250px;
+        width:100%;
+        object-fit: cover;
+    }
+</style>

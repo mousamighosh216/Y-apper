@@ -1,0 +1,82 @@
+---
+import { contents } from "../data/fetchBlogs";
+const currentPath = Astro.url.pathname;
+interface Props {
+    slug: string;
+    image: string;
+    title: string;
+    date: string;
+    author:string;
+    content:string;
+    tags: string[];
+    rating: number;
+}
+
+const { slug,image,title,date,author,content,tags,rating } = Astro.props;
+let stars = '';
+for (let i = 0; i < rating; i++) {
+  stars += '★';
+}
+---
+
+<article class="relative transition-all rounded-xl duration-300 ease-in hover:scale-102 hover:shadow-2xl overflow-hidden">
+    <a 
+    style="padding: 5px; background-color: ghostwhite;"
+    class="flex flex-row rounded-xl h-[270px] w-[500px]" 
+
+    href=`/articles/${slug}` class={currentPath === `/articles/${slug}` ? 'active' : ''}>
+        <div class=" overflow-hidden rounded-xl h-full w-[350px]">
+            <img 
+            class="object-cover w-full h-full"
+            src={image} alt={title}>
+        </div>
+        
+        <div 
+        style="padding-left: 15px; padding-right: 15px;"
+        class="w-full h-full flex flex-col justify-between">
+            <div 
+            style="margin-top: 15px;" 
+            class="flex flex-row text-[11px] items-center gap-6 justify-between">
+                <div class="flex flex-row gap-2 w-full items-center">
+                    <svg width="15" height="15" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path d="M113.854 22.323h-9.667v-2.677a7.25 7.25 0 0 0-14.5 0v2.677H38.313v-2.677a7.25 7.25 0 0 0-14.5 0v2.677h-9.667a1.75 1.75 0 0 0-1.75 1.75v89.781a1.751 1.751 0 0 0 1.75 1.75h99.708a1.751 1.751 0 0 0 1.75-1.75V24.073a1.75 1.75 0 0 0-1.75-1.75zm-20.667-2.677a3.75 3.75 0 0 1 7.5 0V28.5a3.75 3.75 0 0 1-7.5 0zm-65.874 0a3.75 3.75 0 0 1 7.5 0V28.5a3.75 3.75 0 0 1-7.5 0zm-3.5 6.177V28.5a7.25 7.25 0 0 0 14.5 0v-2.677h51.374V28.5a7.25 7.25 0 0 0 14.5 0v-2.677h7.913V44.2H15.9V25.823zM15.9 112.1V47.7h96.2v64.4z"/><path d="M40.2 56h-8.721a1.749 1.749 0 0 0-1.75 1.75v8.719a1.749 1.749 0 0 0 1.75 1.75H40.2a1.749 1.749 0 0 0 1.75-1.75V57.75A1.749 1.749 0 0 0 40.2 56zm-1.75 8.719h-5.221V59.5h5.218zM58.972 56h-8.719a1.75 1.75 0 0 0-1.75 1.75v8.719a1.75 1.75 0 0 0 1.75 1.75h8.719a1.75 1.75 0 0 0 1.75-1.75V57.75a1.75 1.75 0 0 0-1.75-1.75zm-1.75 8.719H52V59.5h5.219zM77.747 56h-8.719a1.75 1.75 0 0 0-1.75 1.75v8.719a1.75 1.75 0 0 0 1.75 1.75h8.719a1.749 1.749 0 0 0 1.75-1.75V57.75a1.749 1.749 0 0 0-1.75-1.75zM76 64.719h-5.222V59.5H76zM96.521 56H87.8a1.749 1.749 0 0 0-1.75 1.75v8.719a1.749 1.749 0 0 0 1.75 1.75h8.718a1.749 1.749 0 0 0 1.75-1.75V57.75A1.749 1.749 0 0 0 96.521 56zm-1.75 8.719h-5.218V59.5h5.218zM40.2 74h-8.721a1.749 1.749 0 0 0-1.75 1.75v8.719a1.749 1.749 0 0 0 1.75 1.75H40.2a1.749 1.749 0 0 0 1.75-1.75V75.75A1.749 1.749 0 0 0 40.2 74zm-1.75 8.719h-5.221V77.5h5.218zM58.972 74h-8.719a1.75 1.75 0 0 0-1.75 1.75v8.719a1.75 1.75 0 0 0 1.75 1.75h8.719a1.75 1.75 0 0 0 1.75-1.75V75.75a1.75 1.75 0 0 0-1.75-1.75zm-1.75 8.719H52V77.5h5.219zM77.747 74h-8.719a1.75 1.75 0 0 0-1.75 1.75v8.719a1.75 1.75 0 0 0 1.75 1.75h8.719a1.749 1.749 0 0 0 1.75-1.75V75.75a1.749 1.749 0 0 0-1.75-1.75zM76 82.719h-5.222V77.5H76zM96.521 74H87.8a1.749 1.749 0 0 0-1.75 1.75v8.719a1.749 1.749 0 0 0 1.75 1.75h8.718a1.749 1.749 0 0 0 1.75-1.75V75.75A1.749 1.749 0 0 0 96.521 74zm-1.75 8.719h-5.218V77.5h5.218zM40.2 92h-8.721a1.749 1.749 0 0 0-1.75 1.75v8.719a1.749 1.749 0 0 0 1.75 1.75H40.2a1.749 1.749 0 0 0 1.75-1.75V93.75A1.749 1.749 0 0 0 40.2 92zm-1.75 8.719h-5.221V95.5h5.218zM58.972 92h-8.719a1.75 1.75 0 0 0-1.75 1.75v8.719a1.75 1.75 0 0 0 1.75 1.75h8.719a1.75 1.75 0 0 0 1.75-1.75V93.75a1.75 1.75 0 0 0-1.75-1.75zm-1.75 8.719H52V95.5h5.219zM77.747 92h-8.719a1.75 1.75 0 0 0-1.75 1.75v8.719a1.75 1.75 0 0 0 1.75 1.75h8.719a1.749 1.749 0 0 0 1.75-1.75V93.75a1.749 1.749 0 0 0-1.75-1.75zM76 100.719h-5.222V95.5H76zM96.521 92H87.8a1.749 1.749 0 0 0-1.75 1.75v8.719a1.749 1.749 0 0 0 1.75 1.75h8.718a1.749 1.749 0 0 0 1.75-1.75V93.75A1.749 1.749 0 0 0 96.521 92zm-1.75 8.719h-5.218V95.5h5.218z"/></svg>
+                    <p>{date}</p>
+                </div>
+                <div class="flex flex-row gap-2 w-full items-center">
+                    <p>Rating
+                        <span 
+                        style="margin-left: 5px;">
+                            {stars}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div 
+            class="max-h-[65%] overflow-hidden">
+                <p 
+                style="margin-bottom: 5px;"
+                class="font-bold text-xl">{title}</p>
+                <h4
+                class="text-[15px] tracking-tight"
+                >{contents(content)} . . .</h4>
+            </div>
+            <div
+                style=" margin-bottom: 15px;"
+                class="flex flex-row text-[11px] items-center gap-4 justify-between">
+                    <div class="flex flex-row gap-2 w-full items-center">
+                        {
+                            tags.map(tag => (
+                                <h4>{tag}</h4>
+                            ))
+                        }
+                    </div>
+                    <div class="flex flex-row gap-2 w-full items-center"> 
+                        <svg width="15" height="15" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.88"><title>person-profile-image</title><path d="M61.44,0A61.46,61.46,0,1,1,18,18,61.21,61.21,0,0,1,61.44,0ZM49.28,71.35c.26-2.18-6.23-10.54-7.41-14.54-2.54-4-3.44-10.46-.68-14.73,1.11-1.69.63-3.16.63-5.51,0-23.24,40.7-23.24,40.7,0,0,2.94-.67,3.63.92,6,2.66,3.86,1.29,10.72-1,14.3C81,61,74.24,69,74.71,71.37c.42,11.92-25.5,11.53-25.43,0v0Zm-31,20.07c3.25-3.6,9.09-3.76,16.17-7.36a74.7,74.7,0,0,0,7.75-4.53c8.22,10.08,15,21.16,12.78,34.05a52.65,52.65,0,0,0,6.44.4c.55,0,1.09,0,1.64,0-.5-15.14,8.38-26.21,17.79-35.63A68.55,68.55,0,0,0,96.33,86c4.62,1.54,7.39,2.53,9,4.3a52.54,52.54,0,1,0-87,1.08Z"/></svg>
+                        <p>{author}</p>
+                    </div>
+                </div>
+        </div>
+        <div 
+        style="top:40px;"
+        class="h-8 w-25 rounded-r-xl bg-pink-300 absolute font-extrabold flex items-center justify-center text-sm overflow-hidden">{tags[0]}</div>
+    </a>
+</article>
