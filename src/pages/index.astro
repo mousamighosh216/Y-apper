@@ -13,9 +13,9 @@ const filteredArticles = blogs
 
 <Layout>
     <div 
-    class="h-auto w-full justify-between flex flex-row">
+    class="parentdiv h-auto w-full justify-between flex flex-row">
         <div 
-        class="h-screen w-[30%]  flex flex-col">
+        class="child1 h-screen w-[30%]  flex flex-col">
             <div 
             style="margin-top: 5px;"
             class="w-full h-[280px] flex flex-col justify-center items-center">
@@ -57,5 +57,24 @@ const filteredArticles = blogs
 </Layout>
 
 <style>
-   
+   @media(max-width: 750px) {
+        .parentdiv {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-items: center;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .child1 {
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        #searchInput {
+            width: 90%;
+        }
+
+   }
 </style>

@@ -1,6 +1,8 @@
 ---
+export const prerender = true;
+
 import Layout from "../../layouts/Layout.astro";
-import { fetchBlogs } from "../../data/fetchBlogs";
+import { fetchBlogs,formattedDate } from "../../data/fetchBlogs";
 
 export async function getStaticPaths() {
   const blogs = await fetchBlogs();
@@ -33,7 +35,7 @@ const { article } = Astro.props;
                 style="padding:30px; padding-top:0;"
                 class="flex flex-row items-center font-bold justify-between">
                     <h3>{article.author}</h3>
-                    <h3>{article.date}</h3>
+                    <h3>{formattedDate(article.date)}</h3>
                 </div>
             </header>
         <div 

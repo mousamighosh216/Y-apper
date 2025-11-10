@@ -16,10 +16,6 @@ export async function fetchBlogs(): Promise<Blog[]> {
 
   // Flatten Google Sheets structure if needed
   return data.map((entry: any) => {
-    const now = new Date(entry.date);
-    const months = [ "January","February","March","April","May","June", "July","August","September","October","November","December" ]; 
-    const formattedDate = `${now.getDate()}, ${months[now.getMonth()]} ${now.getFullYear()}`;
-
     return {
     slug: slugify(entry.title),
     image: entry.image,
@@ -28,9 +24,16 @@ export async function fetchBlogs(): Promise<Blog[]> {
     author: entry.author,
     tags: tag(entry.tags),
     rating: Number(entry.rating),
-    date: formattedDate,
+    date: entry.date,
     };
   });
+}
+
+export function formattedDate(date: string): string {
+  const now = new Date(date);
+  const months = [ "January","February","March","April","May","June", "July","August","September","October","November","December" ];
+  const formDate = `${now.getDate()}, ${months[now.getMonth()]} ${now.getFullYear()}`;
+  return formDate;
 }
 
 export function tag(tags: string): string[] {

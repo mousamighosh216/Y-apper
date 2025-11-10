@@ -32,7 +32,13 @@
 	}
 
 	@media (max-width: 750px) {
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
 		main {
-			max-width:100%
+			max-width:100%;
 		}
 	}
