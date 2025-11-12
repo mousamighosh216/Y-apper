@@ -8,7 +8,7 @@ import { category } from '../data/category'
         {Object.entries(category).map(([key,category]) => (
             <div class="w-full">
                 <a 
-                href="/"
+                href={`/?category=${encodeURIComponent(category.title)}`}
                 class="gap-10 tracking-widest hover:bg-gray-200 rounded h-8 flex flex-row justify-between w-full px-4 border-b border-gray-200 py-2">
                     <h3 class="flex flex-col items-center justify-center">
                         {category.title}   

@@ -4,11 +4,12 @@ import Category from "../components/Category.astro"
 import Card from "../components/Card.astro"
 import TopPost from '../components/TopPost.astro';
 import { fetchBlogs, slugify } from "../data/fetchBlogs";
+
 const blogs = await fetchBlogs();
-
-const filteredArticles = blogs
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
+const url = new URL(Astro.request.url);
+const selectedCategory = url.searchParams.get("category");
+const filteredBlogs = selectedCategory ? blogs.filter((blog) => blog.tags.includes(selectedCategory)) : blogs;
+const filteredArticles = filteredBlogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());   
 ---
 
 <Layout>
